@@ -180,6 +180,18 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Text('Nedd an Account?', style: GoogleFonts.roboto(fontWeight: FontWeight.w500,
+                  
+                    letterSpacing: 1,
+                    )),
+                     Text('Sign up', style: GoogleFonts.roboto(color: Color(0xFF103DE5),
+                     fontWeight: FontWeight.bold,)),
+                    
+                  ],)
           ],
         ),
       ),
