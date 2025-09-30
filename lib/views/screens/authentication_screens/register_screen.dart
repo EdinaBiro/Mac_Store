@@ -3,14 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mac_store_app/views/screens/authentication_screens/login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.95),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
       child: Center(
+        child:  SingleChildScrollView(
+        child: Form(
+          key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -53,6 +57,13 @@ class RegisterScreen extends StatelessWidget {
             ),
 
             TextFormField(
+              validator: (value){
+                if(value!.isEmpty){
+                    return 'Enter ypur email';
+                }else{
+                  return null;
+                }
+              },
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
@@ -94,6 +105,13 @@ class RegisterScreen extends StatelessWidget {
             ),
 
             TextFormField(
+              validator: (value){
+                if(value!.isEmpty){
+                  return 'Enter your full name';
+                }else{
+                  return null;
+                }
+              },
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
@@ -123,7 +141,14 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                            TextFormField(
+              TextFormField(
+                validator: (value){
+                  if(value!.isEmpty){
+                    return "Enter your password";
+                  }else{
+                    return null;
+                  }
+                },
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
@@ -151,7 +176,15 @@ class RegisterScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 20),
-                Container(
+                InkWell(
+                  onTap: () {
+                    if(_formKey.currentState!.validate()){
+                      print('correct');
+                    }else{
+                      print('failed');
+                    }
+                  } ,
+                  child: Container(
                   width: 319,
                   height: 50,
                   decoration: BoxDecoration(
@@ -209,6 +242,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ) 
                         ),
+                      
                         ),
                         
                         Center (
@@ -225,6 +259,7 @@ class RegisterScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                ),
                   SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -249,6 +284,8 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     ),
+      ),
+      ),
     );
   }
 }

@@ -3,14 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mac_store_app/views/screens/authentication_screens/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.95),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
       child: Center(
+        child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -51,6 +55,13 @@ class LoginScreen extends StatelessWidget {
             ),
 
             TextFormField(
+              validator: (value){
+                if(value!.isEmpty){
+                  return 'enter your email';
+                }else{
+                    return null;
+                }
+              },
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
@@ -79,7 +90,14 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                            TextFormField(
+                TextFormField(
+                   validator: (value){
+                if(value!.isEmpty){
+                  return 'enter your password';
+                }else{
+                    return null;
+                }
+              },
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
@@ -107,7 +125,15 @@ class LoginScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 20),
-                Container(
+                InkWell(
+                  onTap: () {
+                    if(_formKey.currentState!.validate()){
+                      print('pass');
+                    }else{
+                      print('failed');
+                    }
+                  },
+                child: Container(
                   width: 319,
                   height: 50,
                   decoration: BoxDecoration(
@@ -180,6 +206,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                ),
                   ),
                   SizedBox(height: 20,),
                   Row(
@@ -211,6 +238,8 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     ),
+      ),
+      ),
     );
   }
 }
