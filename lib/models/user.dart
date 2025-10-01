@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 class User{
   final String id;
   final String fullName;
@@ -22,4 +24,16 @@ class User{
     };
   }
   String toJson() => json.encode(toMap());
+  
+factory User.fromMap(Map<String, dynamic>map){
+  return User( 
+    id: map['_id'] as String? ?? "",
+    fullName: map['fullName'] as String? ?? "",
+    email: map['email'] as String? ?? "",
+    state : map['state'] as String? ?? "",
+    city: map['city'] as String? ?? "",
+    locality: map['locality'] as String? ?? "",
+    password: map['password'] as String? ?? "",
+    );
+}
 }
