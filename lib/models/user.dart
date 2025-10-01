@@ -1,3 +1,4 @@
+import 'dart:convert';
 class User{
   final String id;
   final String fullName;
@@ -20,4 +21,5 @@ class User{
       "password": password
     };
   }
+  String toJson() => json.encode(toMap());
 }
