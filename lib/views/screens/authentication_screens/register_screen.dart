@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mac_store_app/controllers/auth_controller.dart';
 import 'package:mac_store_app/views/screens/authentication_screens/login_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget{
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  final AuthController _authController = AuthController();
+  late String email;
+  late String fullName;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +65,9 @@ class RegisterScreen extends StatelessWidget {
             ),
 
             TextFormField(
+              onChanged: (value){
+                email = value;
+              },
               validator: (value){
                 if(value!.isEmpty){
                     return 'Enter ypur email';
@@ -105,6 +116,9 @@ class RegisterScreen extends StatelessWidget {
             ),
 
             TextFormField(
+              onChanged: (value){
+                fullName = value;
+              },
               validator: (value){
                 if(value!.isEmpty){
                   return 'Enter your full name';
@@ -142,6 +156,9 @@ class RegisterScreen extends StatelessWidget {
                   height: 20,
                 ),
               TextFormField(
+                onChanged: (value){
+                  password =value;
+                },
                 validator: (value){
                   if(value!.isEmpty){
                     return "Enter your password";
@@ -177,12 +194,10 @@ class RegisterScreen extends StatelessWidget {
 
                 SizedBox(height: 20),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if(_formKey.currentState!.validate()){
-                      print('correct');
-                    }else{
-                      print('failed');
-                    }
+                      await _authController.signUpUsers(context: context, email: email, fullName: fullName, password: password);
+                    } 
                   } ,
                   child: Container(
                   width: 319,
