@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mac_store_app/controllers/auth_controller.dart';
 import 'package:mac_store_app/views/screens/authentication_screens/register_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget{
+  const LoginScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _LoginScreenState();
+}
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthController _authController = AuthController();
+  late String email;
+  late String password;
+  bool isLoading = false;
+
+  loginUser() async{
+    setState(() {
+      isLoading = true;
+    });
+        await _authController.signinUsers(
+                        context: context, 
+                        email: email,
+                        password: password).whenComplete((){
+                          _formKey.currentState!.reset();
+                          setState(() {
+                            isLoading = false;
+                          });
+                        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +81,9 @@ class LoginScreen extends StatelessWidget {
             ),
 
             TextFormField(
+              onChanged: (value) {
+                email = value;
+              },
               validator: (value){
                 if(value!.isEmpty){
                   return 'enter your email';
@@ -91,6 +120,9 @@ class LoginScreen extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  onChanged: (value){
+                    password = value;
+                  },
                    validator: (value){
                 if(value!.isEmpty){
                   return 'enter your password';
@@ -126,11 +158,11 @@ class LoginScreen extends StatelessWidget {
 
                 SizedBox(height: 20),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if(_formKey.currentState!.validate()){
-                      print('pass');
+                     loginUser();
                     }else{
-                      print('failed');
+                     
                     }
                   },
                 child: Container(
@@ -194,7 +226,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         
                         Center (
-                          child: Text(
+                          child: isLoading ? CircularProgressIndicator(color: Colors.white): Text(
                           'Sign in',
                           style: GoogleFonts.getFont(
                             'Lato',
