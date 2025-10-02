@@ -3,17 +3,24 @@
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget{
-  const MainScreen({super.key});
-
-  @override
+ @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen>{
+  int _pageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
      bottomNavigationBar: BottomNavigationBar(
+      selectedItemColor: Colors.purple,
+      unselectedItemColor: Colors.grey,
+      currentIndex: _pageIndex,
+      onTap: (value){
+        setState(() {
+          _pageIndex = value;
+        });
+      },
       type: BottomNavigationBarType.fixed,
       items: [
       BottomNavigationBarItem(icon: Image.asset('assets/icons/home.png',width: 25,), label: "Home"),
