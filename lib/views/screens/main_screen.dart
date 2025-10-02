@@ -1,6 +1,11 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:mac_store_app/views/screens/nav_screens/account_screen.dart';
+import 'package:mac_store_app/views/screens/nav_screens/cart_screen.dart';
+import 'package:mac_store_app/views/screens/nav_screens/favorites_screen.dart';
+import 'package:mac_store_app/views/screens/nav_screens/home_screen.dart';
+import 'package:mac_store_app/views/screens/nav_screens/stores_screen.dart';
 
 class MainScreen extends StatefulWidget{
  @override
@@ -9,6 +14,13 @@ class MainScreen extends StatefulWidget{
 
 class _MainScreenState extends State<MainScreen>{
   int _pageIndex = 0;
+  final List<Widget> _pages=[
+    HomeScreen(),
+    FavoritesScreen(),
+    StoresScreen(),
+    CartScreen(),
+    AccountScreen(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +42,7 @@ class _MainScreenState extends State<MainScreen>{
           BottomNavigationBarItem(icon: Image.asset('assets/icons/user.png',width: 25,), label: "Account")
 
      ]),
+     body: _pages[_pageIndex],
     );
   }
 }
