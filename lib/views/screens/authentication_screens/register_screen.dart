@@ -13,6 +13,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late String email;
   late String fullName;
   late String password;
+  bool isLoading = false;
+
+  registerUser() async {
+    setState(() {
+      isLoading = true;
+    });
+    await  _authController.signUpUsers(context: context, email: email, fullName: fullName, password: password).whenComplete((){
+      _formKey.currentState!.reset();
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,11 +208,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 SizedBox(height: 20),
                 InkWell(
-                  onTap: () async {
+                  onTap: () {
                     if(_formKey.currentState!.validate()){
-                      await _authController.signUpUsers(context: context, email: email, fullName: fullName, password: password);
-                    } 
-                  } ,
+                     registerUser();
+                  } 
+                  },
                   child: Container(
                   width: 319,
                   height: 50,
@@ -261,7 +275,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         
                         Center (
-                          child: Text(
+                          child: isLoading ? CircularProgressIndicator(color: Colors.white): Text(
                           'Sign up',
                           style: GoogleFonts.getFont(
                             'Lato',
