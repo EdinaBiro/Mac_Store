@@ -24,7 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         context: context, 
                         email: email,
                         password: password).whenComplete((){
-                          _formKey.currentState!.reset();
                           setState(() {
                             isLoading = false;
                           });

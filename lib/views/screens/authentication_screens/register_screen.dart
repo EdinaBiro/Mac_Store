@@ -20,7 +20,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       isLoading = true;
     });
     await  _authController.signUpUsers(context: context, email: email, fullName: fullName, password: password).whenComplete((){
-      _formKey.currentState!.reset();
       setState(() {
         isLoading = false;
       });
