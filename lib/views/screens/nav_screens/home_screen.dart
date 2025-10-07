@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mac_store_app/views/screens/nav_screens/widgets/banner_widget.dart';
 import 'package:mac_store_app/views/screens/nav_screens/widgets/header_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
       child: Column(children: [
       HeaderWidget(),
+      BannerWidget(),
       ],
       ),
       ),
